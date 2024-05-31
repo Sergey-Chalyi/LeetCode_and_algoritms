@@ -3,10 +3,10 @@ package LeetCode_Solved;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpiralMatrix_54 {
+public class M_SpiralMatrix_54 {
     public static void main(String[] args) {
         //тест
-        SpiralMatrix_54 solution = new SpiralMatrix_54();
+        M_SpiralMatrix_54 solution = new M_SpiralMatrix_54();
         int[][] matrix = {
                 {1}
         };
