@@ -1,8 +1,8 @@
-package LeetCode_Solved;
+package LeetCode_Solved.MEDIUM;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//31-05-24
 public class M_SetMatrixZeroes_73 {
     public static void main(String[] args) {
         int[][] matrix = {
