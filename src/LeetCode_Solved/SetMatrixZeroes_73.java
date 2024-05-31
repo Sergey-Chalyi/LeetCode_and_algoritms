@@ -1,14 +1,16 @@
+package LeetCode_Solved;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution {
+public class SetMatrixZeroes_73 {
     public static void main(String[] args) {
         int[][] matrix = {
                 {0, 1, 2, 0},
                 {3, 4, 5, 2},
                 {1, 3, 1, 5}
         };
-        Solution solution = new Solution();
+        SetMatrixZeroes_73 solution = new SetMatrixZeroes_73();
         solution.setZeroes(matrix);
         System.out.println(matrix.toString());
     }
