@@ -7,6 +7,7 @@ public class M_MultiplyStrings_43 {
     }
 
     public String multiply(String num1, String num2) {
+        if(num1.equals("0") || num2.equals("0")) return "0";
         //вычисляем большее по размеру число и присваиваем в соответствующую переменную
         String biggerNumber;
         String smallerNumber;
@@ -33,7 +34,7 @@ public class M_MultiplyStrings_43 {
         }
 
         //начинаем умножение
-        long sum = 0;
+        String sum = "";
         for(int i = smallerNumber.length() - 1; i >= 0; i--) {
             int digitFromSmall = arrayWithDigitsFromSmallerNumber[i];
 
@@ -55,8 +56,7 @@ public class M_MultiplyStrings_43 {
                     numberToAdd = numberToAdd;
                 }
 
-
-                tempNumber = (numberToAdd) + tempNumber;
+                if (numberToAdd != 0) tempNumber = numberToAdd + tempNumber;
 
             }
             tempNumber = countOfNumbersToAdd == 0 ? tempNumber : countOfNumbersToAdd + tempNumber;
@@ -64,10 +64,56 @@ public class M_MultiplyStrings_43 {
             for(int countOfZeroes = 0; countOfZeroes < countOfZeroesToAddInTheEndOfNumber; countOfZeroes++) {
                 tempNumber += 0;
             }
-
-            sum += Long.parseLong(tempNumber);
+            //суммируем
+            sum = sum(sum, tempNumber);
         }
         return sum + "";
     }
-    // НУЖНО дописать алгоритм плюбсования, ибо даже иногда контейнера long мало!!!
+
+    private String sum(String sum, String tempNumber) {
+        String lastSum = sum;
+        String numberToAdd = tempNumber;
+
+        String big;
+        String small;
+        if (lastSum.length() >= numberToAdd.length()) {
+            big = lastSum;
+            small = numberToAdd;
+        } else {
+            big = numberToAdd;
+            small = lastSum;
+        }
+
+        int[] arrayWithBigNumbers = new int[big.length()];
+        for(int index = 0; index < arrayWithBigNumbers.length; index++) {
+            arrayWithBigNumbers[index] = Integer.parseInt(big.charAt(index) + "");
+        }
+
+        int[] arrayWithSmallNumber = new int[big.length()];
+        for(int index = 0; index < arrayWithSmallNumber.length; index++) {
+            if (index < (big.length() - small.length())) arrayWithSmallNumber[index] = 0;
+            else arrayWithSmallNumber[index] = Integer.parseInt(small.charAt(index - (big.length() - small.length())) + "");
+        }
+
+        int count = 0;
+        String tempSum = "";
+        for(int index = arrayWithSmallNumber.length - 1; index >= 0; index--) {
+            int number1 = arrayWithSmallNumber[index];
+            int number2 = arrayWithBigNumbers[index];
+
+            int tempResult = number1 + number2 + count;
+            if (tempResult <= 9) {
+                tempSum = tempResult + tempSum;
+                count = 0;
+            }
+            else {
+                count = tempResult / 10;
+                tempSum = tempResult % 10 + tempSum;
+            }
+        }
+        if(count != 0) tempSum = count + tempSum;
+
+        sum = tempSum;
+        return sum;
+    }
 }
