@@ -1,9 +1,4 @@
-package LeetCode_Solved.MEDIUM;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+package LeetCode_NOT_Solved.MEDIUM;
 
 public class M_ProductOfArrayExceptSelf_238 {
     // короче, в приватном методе нужно сделать так, чтобы у нас хранился екземпляр массива БЕЗ лишних -1
