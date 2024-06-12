@@ -1,50 +1,59 @@
 package LeetCode_NOT_Solved.MEDIUM;
 
+import java.util.ArrayList;
+import java.util.List;
+//12-06-2024
 public class M_ProductOfArrayExceptSelf_238 {
-    // короче, в приватном методе нужно сделать так, чтобы у нас хранился екземпляр массива БЕЗ лишних -1
-    // для того, чтоб НЕ проходить каждый раз по всем еденицам, а просто на одну умножить
+    // создаем лист для хранения массива без единиц и при условии, что у нас нечетное число -1, оставляем одну -1
+    private List<Integer> listWithoutOnes = new ArrayList<>();
 
     public int[] productExceptSelf(int[] nums) {
-        /*
-        int countOfNegativeOne = countOfNegativeOne(nums);
-
-        String result = Arrays.stream(nums)
-                .mapToObj(String::valueOf)
-                .collect(Collectors.joining(".."));
-        result.replaceAll(".1.", "");
-        result.replaceAll(".-1.", "");
-        if (countOfNegativeOne % 2 != 0) result += "..-1";
-        String[] array = result.split("..");
-
-
-        int[] numbers = new int[array.length];
-        for(int i = 0; i < array.length; i++) {
-            numbers[i] = Integer.parseInt(array[i]);
-        }
-
-
-         */
+        // создаем массив, который будем возвращать
         int[] finalResult = new int[nums.length];
+        // заполняем лист значениями лист БЕЗ единиц и при условии, что у нас нечетное число -1, оставляем несколько -1
+        fillInTheList(nums);
+
         for(int i = 0; i < nums.length; i++) {
-            finalResult[i] = multiplyElementsFromArrayWithoutOne(nums, i);
+            // решение
+            finalResult[i] = multiplyElementsFromArrayWithoutOne(nums[i]);
         }
+        // возвращаем финальный массив
         return finalResult;
     }
 
-    private int multiplyElementsFromArrayWithoutOne(int[] array, int index) {
-        int result = 1;
-        for(int i = 0; i < array.length; i++) {
-            if (i == index) continue;
-            result *= array[i];
+    private void fillInTheList(int[] numbers) {
+        // заполняем лист значениями лист БЕЗ единиц и при условии, что у нас нечетное число -1, оставляем несколько -1
+        int countOfNegativeOnes = 0;
+        for(int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == 1) continue;
+            else if (numbers[i] == -1) countOfNegativeOnes++;
+            else listWithoutOnes.add(numbers[i]);
         }
-        return result;
+        // оставляем именно 3 шт, или 2 шт -1 по той причине, что если оставить одну, то метод multiplyElementsFromArrayWithoutOne
+        // в части if (listWithoutOnes.get(i) == numberFromArray && oneFlag == true) будет работать НЕ правильно
+        if (countOfNegativeOnes % 2 != 0) {
+
+            listWithoutOnes.add(-1);
+            listWithoutOnes.add(-1);
+            listWithoutOnes.add(-1);
+        } else {
+            listWithoutOnes.add(-1);
+            listWithoutOnes.add(-1);
+        }
     }
 
-    private int countOfNegativeOne(int[] array) {
-        int countOfNegative = 0;
-        for(int i = 0; i < array.length; i++) {
-            if (array[i] == -1) countOfNegative++;
+    private int multiplyElementsFromArrayWithoutOne(int numberFromArray) {
+        int result = 1;
+        boolean oneFlag = true;
+        for(int i = 0; i < listWithoutOnes.size(); i++) {
+            if (listWithoutOnes.get(i) == numberFromArray && oneFlag == true) {
+                // пропускаем то значение, которое у нас сейчас в массиве и СНИМАЕМ флаг
+                // чтоб больше похожие значения НЕ пропустить
+                oneFlag = false;
+            } else {
+                result *= listWithoutOnes.get(i);
+            }
         }
-        return countOfNegative;
+        return result;
     }
 }
