@@ -1,4 +1,4 @@
-package LeetCode_NOT_Solved.MEDIUM;
+package LeetCode_Solved.MEDIUM;
 
 import java.util.ArrayList;
 import java.util.List;
