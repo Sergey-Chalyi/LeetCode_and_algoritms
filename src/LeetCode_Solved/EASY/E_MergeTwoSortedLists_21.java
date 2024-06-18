@@ -65,7 +65,7 @@ public class E_MergeTwoSortedLists_21 {
             } else {
                 // если в листе есть еллемент, больший за данный, то проходим по листу и добавляем на место
                 // первого большего еллемента наш еллемент
-                if (valuesFromList2.getLast() > element) {
+                if (valuesFromList2.get(valuesFromList2.size() - 1) > element) {
                     for (int j = 0; j < valuesFromList2.size(); j++) {
                         if (element < valuesFromList2.get(j)) {
                             valuesFromList2.add(j, element);
@@ -88,7 +88,7 @@ public class E_MergeTwoSortedLists_21 {
         }
         //это сделано для того (не задеваем последний еллемент), чтоб последнему звену связного списка присвоить просто значение
         //и не переприсваивать переменную listNode, чтоб можно было вернуть корректный результат
-        listNode.val = valuesFromList2.getLast();
+        listNode.val = valuesFromList2.get(valuesFromList2.size() - 1);
 
         return theHead;
     }

@@ -1,9 +1,6 @@
 package LeetCode_Solved.EASY;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 //10-06-2024
 
 public class E_ReverseVowelsOfAString_345 {
@@ -14,7 +11,7 @@ public class E_ReverseVowelsOfAString_345 {
         // cоздаем скроку, в которую будем записывать финальный результат
         String resultString = "";
         // cоздаем лист для хранения всех гласных из слова
-        List<Character> characters = new ArrayList<>();
+        List<Character> characters = new LinkedList<>();
         // заполняем его
         for(int i = 0; i < string.length(); i++) {
             if (isAVoteSymbol(string.charAt(i))) characters.add(string.charAt(i));
@@ -24,8 +21,8 @@ public class E_ReverseVowelsOfAString_345 {
         //теперь опять проходим циклом по исходной строке и заменяем все символы
         for(int i = 0; i < string.length(); i++) {
             if (isAVoteSymbol(string.charAt(i))) { // если буква - гласная, то добавляем в результат с заменой
-                resultString += characters.getFirst(); // добавляем первый символ из листа (развернутого) с буквами
-                characters.removeFirst(); // и удаляем первый елемент листа
+                resultString += characters.get(0); // добавляем первый символ из листа (развернутого) с буквами
+                characters.remove(0); // и удаляем первый елемент листа
             } else {
                 resultString += string.charAt(i); // в противном случае просто добавляем согласную к результату
             }
