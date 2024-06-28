@@ -42,3 +42,4 @@ public class E_CanPlaceFlowers_605 {
         return finalCount >= n;
     }
 }
+
