@@ -1,0 +1,129 @@
+package LeetCode_Solved.MEDIUM;
+
+import java.util.Arrays;
+//28-06-2024
+//27-06-2024
+public class M_1004_n_MaxConsecutiveOnesIII {
+    // algorithm 3 - sliding window (correct)
+    public int longestOnes(int[] array, int k) {
+        int leftIndex = 0;
+        int maxCount = 0;
+        int countOfOnes = 0;
+
+        for(int i = 0; i < array.length; i++) { // i is the right index of the window
+            if (array[i] == 0)
+                countOfOnes++;
+
+            if (countOfOnes > k) {
+                if (array[leftIndex] == 0)
+                    countOfOnes--;
+                leftIndex++;
+            }
+
+            maxCount = Math.max(maxCount, i - leftIndex + 1);
+        }
+
+        return maxCount;
+    }
+
+    // algorithm 2 (time limit exception)
+    public int longestOnes2(int[] array, int k) {
+        if (countOfZeroesInArray(array) == k) return array.length;
+
+        int maxCountOfNotInterruptedOnes = 0;
+
+        for(int i = 0; i < array.length; i++) {
+            int countOfNotInterruptedOnes = 0;
+            int[] copyArray = Arrays.copyOf(array, array.length);
+            int tempK = k;
+            int j = i;
+            if (copyArray[j] == 0 && tempK > 0) {
+                copyArray[j] = 1;
+                tempK--;
+            } else if (copyArray[j] == 0 && tempK == 0) {
+                continue;
+            }
+
+            do {
+                countOfNotInterruptedOnes++;
+                if (j + 1 < array.length) j++;
+                else break;
+                if (copyArray[j] == 0 && tempK > 0) {
+                    copyArray[j] = 1;
+                    tempK--;
+                }
+            } while(copyArray[j] == 1 && j < array.length);
+
+            if (maxCountOfNotInterruptedOnes < countOfNotInterruptedOnes)
+                maxCountOfNotInterruptedOnes = countOfNotInterruptedOnes;
+        }
+        return maxCountOfNotInterruptedOnes;
+
+    }
+    private int countOfZeroesInArray(int[] array) {
+        int countOfZeroesInArray = 0;
+        for(int number : array) {
+            if (number == 0) countOfZeroesInArray++;
+        }
+        return countOfZeroesInArray;
+    }
+
+    // algorithm 1 (wrong)
+    public int longestOnes1(int[] array, int k) {
+        int maxCountOfNotInterruptedOnes = 0;
+        int collectTempCountOfNotInterrupterOnes = 0;
+
+        try {
+            for(int i = 0; i < array.length; /**/) {
+                int countOfNotInterruptedOnes = 0;
+                int tempK = k;
+
+                if (array[i] == 1) {
+                    while(array[i] != 0) {
+                        countOfNotInterruptedOnes++;
+                        collectTempCountOfNotInterrupterOnes = countOfNotInterruptedOnes;
+                        i++;
+                        // check next item
+                        if (array[i] == 0 && tempK > 0) {
+                            array[i] = 1;
+                            tempK--;
+                        }
+                    }
+                    if (maxCountOfNotInterruptedOnes < countOfNotInterruptedOnes)
+                        maxCountOfNotInterruptedOnes = countOfNotInterruptedOnes;
+                } else if (array[i] == 0) {
+                    if (tempK == 0) {
+                        i++;
+                    } else {
+                        array[i] = 1;
+                        tempK--;
+                        while(array[i] != 0) {
+                            countOfNotInterruptedOnes++;
+                            collectTempCountOfNotInterrupterOnes = countOfNotInterruptedOnes;
+                            i++;
+                            // check next item
+                            if (array[i] == 0 && tempK > 0) {
+                                array[i] = 1;
+                                tempK--;
+                            }
+                        }
+                        if (maxCountOfNotInterruptedOnes < countOfNotInterruptedOnes)
+                            maxCountOfNotInterruptedOnes = countOfNotInterruptedOnes;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // it means that our index out of range
+            if (maxCountOfNotInterruptedOnes < collectTempCountOfNotInterrupterOnes)
+                maxCountOfNotInterruptedOnes = collectTempCountOfNotInterrupterOnes;
+        }
+
+        return maxCountOfNotInterruptedOnes;
+    }
+
+
+
+    public static void main(String[] args) {
+        System.out.println(new M_1004_n_MaxConsecutiveOnesIII().longestOnes(new int[]{0, 0}, 0));
+    }
+}
