@@ -15,9 +15,11 @@ class Solution:
                 final_palindrome_len += char_count
             else:
                 temp_list.append(char_count)
+
         if len(temp_list) > 0:
             for count in temp_list:
                 if count // 2 > 0:
                     final_palindrome_len += (count // 2) * 2
             final_palindrome_len += 1
+        
         return final_palindrome_len

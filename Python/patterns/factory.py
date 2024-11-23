@@ -1,6 +1,3 @@
-from math import factorial
-
-
 class Car():
     def get_name(self) -> str:
         return 'car'
