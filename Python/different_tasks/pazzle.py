@@ -33,6 +33,7 @@ class PuzzleSolver:
 
             if len(current_sequence) > len(max_sequence):
                 max_sequence = current_sequence
+            # elif 
 
         return max_sequence
 
